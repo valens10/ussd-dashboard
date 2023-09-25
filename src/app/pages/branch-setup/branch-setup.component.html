@@ -1,0 +1,288 @@
+<div class="container-fluid">
+  <h4>Branch Account</h4>
+  <div class="clientLoanInfoClassv1">
+    <div class="row">
+      <div class="col">
+        <p class="clientInfoValueClass">{{ branch_account?.account_number }}</p>
+        <p class="clientInfoKeyClass">Account Number:</p>
+      </div>
+
+      <div class="col">
+        <p class="clientInfoValueClass">
+          {{ branch_account?.name | titlecase }}
+        </p>
+        <p class="clientInfoKeyClass">Name</p>
+      </div>
+
+      <div class="col">
+        <p class="clientInfoValueClass">{{ branch_account?.currency }}</p>
+        <p class="clientInfoKeyClass">Currency:</p>
+      </div>
+
+      <div class="col">
+        <p class="clientInfoValueClass">
+          {{ branch_account?.balance | number }}
+        </p>
+        <p class="clientInfoKeyClass">Balance</p>
+      </div>
+
+      <div class="col">
+        <p class="clientInfoValueClass">
+          {{ branch_account?.created_at | date }}
+        </p>
+        <p class="clientInfoKeyClass">Created At</p>
+      </div>
+
+      <div class="col">
+        <p class="clientInfoValueClass">
+          <span class="text-primary">
+            {{ branch_account?.is_active ? "YES" : "NO" }}</span
+          >
+        </p>
+        <p class="clientInfoKeyClass">Status</p>
+      </div>
+    </div>
+  </div>
+
+  <br />
+
+  <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+    <li [ngbNavItem]="1">
+      <button ngbNavLink>Transaction</button>
+      <ng-template ngbNavContent>
+        <div class="card mt-3">
+          <div class="table-responsive">
+            <table class="table table-hover table-sm">
+              <thead class="table-light">
+                <tr>
+                  <th>Trans ID</th>
+                  <th>Account Number</th>
+                  <th>Operation</th>
+                  <th>Credit</th>
+                  <th>Debit</th>
+                  <th>Transaction Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of transactions">
+                  <td>
+                    {{ item?.id_his }}
+                  </td>
+
+                  <td>
+                    {{ item?.account_number }}
+                  </td>
+                  <td>
+                    {{ item?.description }}
+                  </td>
+
+                  <td>
+                    <span *ngIf="item?.trans_type == 'C'">{{
+                      item?.amount
+                    }}</span>
+                  </td>
+                  <td>
+                    <span *ngIf="item?.trans_type == 'D'">{{
+                      item?.amount
+                    }}</span>
+                  </td>
+                  <td>
+                    {{ item?.created_at | date : "medium" }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br />
+            <br />
+          </div>
+        </div>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="2">
+      <button ngbNavLink>Loans</button>
+      <ng-template ngbNavContent>
+        <div class="card mt-3">
+          <div class="table-responsive">
+            <table class="table table-hover table-sm">
+              <thead class="table-light">
+                <tr>
+                  <th>Loan ID</th>
+                  <th>Client</th>
+                  <th>Application Date</th>
+                  <th>Payment Date</th>
+                  <th>Loan Amount</th>
+                  <th>Penalities</th>
+                  <th>Outstanding Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of loans">
+                  <td>
+                    {{ item?.id }}
+                  </td>
+
+                  <td>
+                    {{ item?.client.full_name }}
+                  </td>
+
+                  <td>
+                    {{ item?.application_date | date }}
+                  </td>
+                  <td>
+                    {{ item?.payment_date | date }}
+                  </td>
+
+                  <td>
+                    {{ item?.requested_loan_amount | number }}
+                  </td>
+                  <td>
+                    {{ item?.paid_loan_penalities | number }}
+                  </td>
+                  <td>
+                    {{ item?.remaining_paid_loan_amount | number }}
+                  </td>
+
+                  <td>
+                    <span class="text-primary" *ngIf="item.is_paid">Paid</span>
+                    <span class="text-danger" *ngIf="!item.is_paid"
+                      >Unpaid</span
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br />
+            <br />
+          </div>
+        </div>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="3">
+      <button ngbNavLink>Saving Product</button>
+      <ng-template ngbNavContent>
+        <div class="card mt-3">
+          <div class="table-responsive">
+            <table class="table table-hover table-sm">
+              <thead class="table-light">
+                <tr>
+                  <th>Product ID</th>
+                  <th>Name</th>
+                  <th>Deposit Feee</th>
+                  <th>Interest Rate</th>
+                  <th>Minimum Initial Deposit</th>
+                  <th>Withdrawal Fee</th>
+                  <th>Created At</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of s_product">
+                  <td>
+                    {{ item?.id }}
+                  </td>
+
+                  <td>
+                    {{ item?.name }}
+                  </td>
+
+                  <td>
+                    {{ item?.deposit_fee }}
+                  </td>
+                  <td>{{ item?.interest_rate }}%</td>
+
+                  <td>
+                    {{ item?.minimum_initial_deposit | number }}
+                  </td>
+                  <td>
+                    {{ item?.withdrawal_fee | number }}
+                  </td>
+                  <td>
+                    {{ item?.created_date | date }}
+                  </td>
+
+                  <td>
+                    <span class="text-primary" *ngIf="item.is_active"
+                      >Active</span
+                    >
+                    <span class="text-danger" *ngIf="!item.is_active"
+                      >Inactive</span
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br />
+            <br />
+          </div>
+        </div>
+      </ng-template>
+    </li>
+
+    <li [ngbNavItem]="4">
+      <button ngbNavLink>Loan Product</button>
+      <ng-template ngbNavContent>
+        <div class="card mt-3">
+          <div class="table-responsive">
+            <table class="table table-hover table-sm">
+              <thead class="table-light">
+                <tr>
+                  <th>Product ID</th>
+                  <th>Name</th>
+                  <th>Application Feee</th>
+                  <th>Interest Rate</th>
+                  <th>Max Loan Amount</th>
+                  <th>Penalities</th>
+                  <th>Currency</th>
+                  <th>Created At</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of p_product">
+                  <td>
+                    {{ item?.id }}
+                  </td>
+
+                  <td>
+                    {{ item?.name }}
+                  </td>
+
+                  <td>
+                    {{ item?.application_fee }}
+                  </td>
+                  <td>{{ item?.interest_rate }}%</td>
+
+                  <td>
+                    {{ item?.max_loan_amount | number }}
+                  </td>
+                  <td>
+                    {{ item?.late_payment_penalty | number }}
+                  </td>
+                  <td>
+                    {{ item?.currency }}
+                  </td>
+
+                  <td>
+                    {{ item?.created_at | date }}
+                  </td>
+
+                  <td>
+                    <span class="text-primary" *ngIf="item.active">Active</span>
+                    <span class="text-danger" *ngIf="!item.active"
+                      >Inactive</span
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br />
+            <br />
+          </div>
+        </div>
+      </ng-template>
+    </li>
+  </ul>
+
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div>

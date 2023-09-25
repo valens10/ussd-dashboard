@@ -1,0 +1,205 @@
+<div class="container-fluid">
+  <div class="clientLoanInfoClass">
+    <div class="row">
+      <div class="col">
+        <p class="clientInfoValueClass">{{ clientObj?.id }}</p>
+        <p class="clientInfoKeyClass">Client ID:</p>
+      </div>
+
+      <div class="col">
+        <p class="clientInfoValueClass">
+          {{ clientObj?.full_name | titlecase }}
+        </p>
+        <p class="clientInfoKeyClass">Client</p>
+      </div>
+
+      <div class="col">
+        <p class="clientInfoValueClass">{{ clientObj?.phone_number }}</p>
+        <p class="clientInfoKeyClass">Phone Number:</p>
+      </div>
+
+      <div class="col">
+        <p class="clientInfoValueClass">
+          {{ clientObj?.address | titlecase }}
+        </p>
+        <p class="clientInfoKeyClass">Address</p>
+      </div>
+
+      <div class="col">
+        <p class="clientInfoValueClass">
+          {{ clientObj?.created_date | date }}
+        </p>
+        <p class="clientInfoKeyClass">Created at</p>
+      </div>
+
+      <div class="col">
+        <p class="clientInfoValueClass">
+          {{ clientObj?.is_verified ? "YES" : "NO" }}
+        </p>
+        <p class="clientInfoKeyClass">Is verified ?</p>
+      </div>
+
+      <div class="col centerCol">
+        <p class="clientInfoValueClass">
+          <span class="text-primary">
+            {{ clientObj?.is_active ? "YES" : "NO" }}</span
+          >
+        </p>
+        <p class="clientInfoKeyClass">Status</p>
+      </div>
+    </div>
+  </div>
+
+  <br />
+
+  <h4>Client Account</h4>
+  <div class="clientLoanInfoClassv1">
+    <div class="row">
+      <div class="col">
+        <p class="clientInfoValueClass">{{ baseAccountObj?.account_number }}</p>
+        <p class="clientInfoKeyClass">Account Number:</p>
+      </div>
+
+      <div class="col">
+        <p class="clientInfoValueClass">
+          {{ baseAccountObj?.id_client?.full_name | titlecase }}
+        </p>
+        <p class="clientInfoKeyClass">Account holder</p>
+      </div>
+
+      <div class="col">
+        <p class="clientInfoValueClass">{{ baseAccountObj?.id_prod?.name }}</p>
+        <p class="clientInfoKeyClass">Product:</p>
+      </div>
+
+      <div class="col">
+        <p class="clientInfoValueClass">
+          {{ baseAccountObj?.balance | titlecase }}
+        </p>
+        <p class="clientInfoKeyClass">Balance</p>
+      </div>
+
+      <div class="col">
+        <p class="clientInfoValueClass">
+          <span class="text-primary">
+            {{ baseAccountObj?.account_status ? "YES" : "NO" }}</span
+          >
+        </p>
+        <p class="clientInfoKeyClass">Status</p>
+      </div>
+    </div>
+  </div>
+
+  <br />
+
+  <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+    <li [ngbNavItem]="1">
+      <button ngbNavLink>Transaction</button>
+      <ng-template ngbNavContent>
+        <div class="card mt-3">
+          <div class="table-responsive">
+            <table class="table table-hover table-sm">
+              <thead class="table-light">
+                <tr>
+                  <th>Trans ID</th>
+                  <th>Account Number</th>
+                  <th>Operation</th>
+                  <th>Credit</th>
+                  <th>Debit</th>
+                  <th>Transaction Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of transactions">
+                  <td>
+                    {{ item?.id_his }}
+                  </td>
+
+                  <td>
+                    {{ item?.account_number }}
+                  </td>
+                  <td>
+                    {{ item?.description }}
+                  </td>
+
+                  <td>
+                    <span *ngIf="item?.trans_type == 'C'">{{
+                      item?.amount
+                    }}</span>
+                  </td>
+                  <td>
+                    <span *ngIf="item?.trans_type == 'D'">{{
+                      item?.amount
+                    }}</span>
+                  </td>
+                  <td>
+                    {{ item?.created_at | date : "medium" }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br />
+            <br />
+          </div>
+        </div>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="2">
+      <button ngbNavLink>Loan</button>
+      <ng-template ngbNavContent>
+        <div class="card mt-3">
+          <div class="table-responsive">
+            <table class="table table-hover table-sm">
+              <thead class="table-light">
+                <tr>
+                  <th>Loan ID</th>
+                  <th>Application Date</th>
+                  <th>Payment Date</th>
+                  <th>Loan Amount</th>
+                  <th>Penalities</th>
+                  <th>Outstanding Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of loans">
+                  <td>
+                    {{ item?.id }}
+                  </td>
+
+                  <td>
+                    {{ item?.application_date | date }}
+                  </td>
+                  <td>
+                    {{ item?.payment_date | date }}
+                  </td>
+
+                  <td>
+                    {{ item?.requested_loan_amount | number }}
+                  </td>
+                  <td>
+                    {{ item?.paid_loan_penalities | number }}
+                  </td>
+                  <td>
+                    {{ item?.remaining_paid_loan_amount | number }}
+                  </td>
+
+                  <td>
+                    <span class="text-primary" *ngIf="item.is_paid">Paid</span>
+                    <span class="text-danger" *ngIf="!item.is_paid"
+                      >Unpaid</span
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br />
+            <br />
+          </div>
+        </div>
+      </ng-template>
+    </li>
+  </ul>
+
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div>

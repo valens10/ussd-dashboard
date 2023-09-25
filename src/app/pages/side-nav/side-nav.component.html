@@ -1,0 +1,40 @@
+<div class="sidebar" [ngClass]="{ expanded: isExpanded }">
+  <div class="content">
+    <div class="link">
+      <div
+        class="content"
+        routerLink="../sacco/home"
+        [routerLinkActive]="'active'"
+      >
+        <div class="title">Dashboard</div>
+      </div>
+    </div>
+    <div class="link">
+      <div
+        class="content"
+        [routerLink]="['../sacco/users']"
+        [routerLinkActive]="'active'"
+      >
+        <div class="title">Users</div>
+      </div>
+    </div>
+    <div class="link">
+      <div
+        class="content"
+        [routerLink]="['../sacco/clients']"
+        [routerLinkActive]="'active'"
+      >
+        <div class="title">Clients</div>
+      </div>
+    </div>
+    <div class="link">
+      <div
+        class="content"
+        [routerLink]="['../sacco/branch']"
+        [routerLinkActive]="'active'"
+      >
+        <div class="title">Branch Setup</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="row mt-2">
+    <div class="col-12">
+      <div class="page-title-box d-flex align-items-center">
+        <div>
+          <h4 class="mb-0 font-size-18">UserS</h4>
+          <div class="group-description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+    <input
+      type="search"
+      (keyup)="searchuser($event)"
+      class="form-control border-none p-2"
+      placeholder="Search user"
+      style="border: 0"
+    />
+  </div>
+
+  <div class="card mt-3">
+    <div class="table-responsive">
+      <table class="table table-sm">
+        <thead class="table-light">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>
+              {{ user?.name | titlecase }}
+            </td>
+            <td>{{ user?.email }}</td>
+            <td>
+              {{ user?.phone_number }}
+            </td>
+            <td>
+              <button class="a-btn text-danger">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

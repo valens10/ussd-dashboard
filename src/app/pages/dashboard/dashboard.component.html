@@ -1,0 +1,40 @@
+<nav
+  class="navbar fixed-top navbar-lightd-flex justify-content-between"
+  style="background-color: #3f4ef3"
+>
+  <a class="navbar-brand ps-2 text-white" href="#">e-Sacco</a>
+
+  <div class="btn-group">
+    <div
+      ngbDropdown
+      role="group"
+      aria-label="Button group with nested dropdown"
+    >
+      <button
+        type="button"
+        class="btn btn-transparent text-white"
+        ngbDropdownToggle
+      ></button>
+      <div class="dropdown-menu" ngbDropdownMenu>
+        <button ngbDropdownItem class="text-danger" (click)="logout()">
+          Logout
+        </button>
+      </div>
+    </div>
+    <button
+      type="button"
+      class="btn btn-transparent text-white"
+      *ngIf="profile?.first_name"
+    >
+      {{ profile?.first_name }} {{ profile?.last_name }}
+    </button>
+  </div>
+</nav>
+
+<app-side-nav
+  [isExpanded]="sidebarExpanded"
+  (toggleSidebar)="sidebarExpanded = !sidebarExpanded"
+></app-side-nav>
+<div class="content" [ngClass]="{ sidebarExpanded: sidebarExpanded }">
+  <router-outlet></router-outlet>
+</div>
