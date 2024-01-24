@@ -24,7 +24,7 @@ Before you begin, ensure you have met the following requirements:
 1. Clone the repository:
 
    ```bash
-   git clone git remote add origin https://github.com/valens10/mobile-banking-ussd.git
+   git clone git remote add origin https://github.com/irene-250/Ussd-Project.git
    ```
 
 ### Install project dependencies:

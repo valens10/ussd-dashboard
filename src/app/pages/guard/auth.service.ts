@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CanActivateChild, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService implements CanActivateChild {
+export class AuthService  {
   private currentUser = JSON.parse(window.sessionStorage.getItem('profile') as string);
 
   constructor(private router: Router) { }

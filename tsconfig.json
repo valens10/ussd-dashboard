@@ -30,4 +30,9 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   }
+  // "include": [
+  //   "src/**/*.ts",
+  //   "node_modules/@angular/core/**/*.ts",
+  //   "node_modules/@angular/core/testing/**/*.ts"
+  // ]
 }
